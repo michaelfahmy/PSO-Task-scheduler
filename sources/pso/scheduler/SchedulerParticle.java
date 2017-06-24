@@ -1,23 +1,25 @@
-package org.cloudbus.cloudsim;
+package pso.scheduler;
 
-import java.util.Random;
 import net.sourceforge.jswarm_pso.Particle;
 
-public class SchedularParticle extends Particle {
-	public SchedularParticle() {
-		super(Constants.NO_OF_TASKS);
-		double[] position, velocity;
-		position = velocity = new double[Constants.NO_OF_TASKS];
-		for (int i = 0; i < Constants.NO_OF_TASKS; i++) {
-			Random randObj = new Random();
+import java.util.Random;
+
+public class SchedulerParticle extends Particle {
+    SchedulerParticle() {
+        super(Constants.NO_OF_TASKS);
+        double[] position = new double[Constants.NO_OF_TASKS];
+        double[] velocity = new double[Constants.NO_OF_TASKS];
+
+        for (int i = 0; i < Constants.NO_OF_TASKS; i++) {
+            Random randObj = new Random();
             position[i] = randObj.nextInt(Constants.NO_OF_DATA_CENTERS);
             velocity[i] = Math.random();
         }
-		setPosition(position);
+        setPosition(position);
         setVelocity(velocity);
-	}
-	
-	@Override
+    }
+
+    @Override
     public String toString() {
         String output = "";
         for (int i = 0; i < Constants.NO_OF_DATA_CENTERS; i++) {
@@ -30,7 +32,8 @@ public class SchedularParticle extends Particle {
                 }
             }
             if (tasks.isEmpty()) output += "There is no tasks associated to Data Center " + i + "\n";
-            else output += "There are " + no_of_tasks +  " tasks associated to Data Center " + i + " and they are " + tasks + "\n";
+            else
+                output += "There are " + no_of_tasks + " tasks associated to Data Center " + i + " and they are " + tasks + "\n";
         }
         return output;
     }
