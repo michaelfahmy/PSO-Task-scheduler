@@ -1,21 +1,18 @@
-package pso.scheduler;
+package org.pso.scheduler;
 
 import net.sourceforge.jswarm_pso.Swarm;
 
 public class PSO {
     private static SchedulerParticle particles[];
+    private static SchedulerFitnessFunction ff = new SchedulerFitnessFunction();
 
-    public static void main(String[] args) {
-        new PSO().run();
-    }
-
-    PSO() {
+    public PSO() {
         initParticles();
     }
 
 
-    public void run() {
-        Swarm swarm = new Swarm(Constants.POPULATION_SIZE, new SchedulerParticle(), new SchedulerFitnessFunction());
+    public double[] run() {
+        Swarm swarm = new Swarm(Constants.POPULATION_SIZE, new SchedulerParticle(), ff);
 
         swarm.setMinPosition(0);
         swarm.setMaxPosition(Constants.NO_OF_DATA_CENTERS - 1);
@@ -34,8 +31,12 @@ public class PSO {
         System.out.println("The best solution is: ");
         SchedulerParticle bestParticle = (SchedulerParticle) swarm.getBestParticle();
         System.out.println(bestParticle.toString());
+        
+        return swarm.getBestPosition();
     }
-
+    
+    public double[][] getExecTimeMatrix() { return ff.getExecTimeMatrix(); }
+    
     private static void initParticles() {
         particles = new SchedulerParticle[Constants.POPULATION_SIZE];
         for (int i = 0; i < Constants.POPULATION_SIZE; ++i)

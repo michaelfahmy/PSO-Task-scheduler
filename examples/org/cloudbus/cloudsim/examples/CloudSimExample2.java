@@ -217,17 +217,17 @@ public class CloudSimExample2 {
 	        return datacenter;
 	    }
 
-	    //We strongly encourage users to develop their own broker policies, to submit vms and cloudlets according
-	    //to the specific rules of the simulated scenario
+	    // We strongly encourage users to develop their own broker policies, to submit vms and cloudlets according
+	    // to the specific rules of the simulated scenario
 	    private static DatacenterBroker createBroker(){
 
 	    	DatacenterBroker broker = null;
 	        try {
-			broker = new DatacenterBroker("Broker");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+				broker = new DatacenterBroker("Broker");
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
 	    	return broker;
 	    }
 

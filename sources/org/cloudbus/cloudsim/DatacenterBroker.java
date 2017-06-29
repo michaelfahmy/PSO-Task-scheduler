@@ -20,6 +20,7 @@ import org.cloudbus.cloudsim.core.SimEntity;
 import org.cloudbus.cloudsim.core.SimEvent;
 import org.cloudbus.cloudsim.lists.CloudletList;
 import org.cloudbus.cloudsim.lists.VmList;
+import org.pso.scheduler.PSO;
 
 /**
  * DatacentreBroker represents a broker acting on behalf of a user. It hides VM management, as vm
@@ -30,7 +31,8 @@ import org.cloudbus.cloudsim.lists.VmList;
  * @since CloudSim Toolkit 1.0
  */
 public class DatacenterBroker extends SimEntity {
-
+	
+	private double[] mapping;
 	/** The vm list. */
 	protected List<? extends Vm> vmList;
 
@@ -332,6 +334,18 @@ public class DatacenterBroker extends SimEntity {
 		setVmsAcks(0);
 	}
 
+	public void submitMapping(double[] psoMapping) {
+		mapping = psoMapping;
+	}
+	
+	public List<Cloudlet> assignCloudletsToDC(List<Cloudlet> cloudlist) {
+//		double[] mapping = (new PSO()).run();
+		int idx = 0;
+		for(Cloudlet cl: cloudlist) {
+			cl.setVmId((int) mapping[idx++]);
+		}
+		return cloudlist;
+	}
 	/**
 	 * Submit cloudlets to the created VMs.
 	 * 
@@ -339,8 +353,11 @@ public class DatacenterBroker extends SimEntity {
 	 * @post $none
 	 */
 	protected void submitCloudlets() {
+		System.out.println("list size = " + getCloudletList().size());
+//		List<Cloudlet> tasks = getCloudletList();
+		List<Cloudlet> tasks = assignCloudletsToDC(getCloudletList());
 		int vmIndex = 0;
-		for (Cloudlet cloudlet : getCloudletList()) {
+		for (Cloudlet cloudlet : tasks) {
 			Vm vm;
 			// if user didn't bind this cloudlet and it has not been executed yet
 			if (cloudlet.getVmId() == -1) {

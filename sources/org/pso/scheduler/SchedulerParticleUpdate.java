@@ -1,4 +1,4 @@
-package pso.scheduler;
+package org.pso.scheduler;
 
 import net.sourceforge.jswarm_pso.Particle;
 import net.sourceforge.jswarm_pso.ParticleUpdate;
