@@ -12,9 +12,9 @@ public class SchedulerFitnessFunction extends FitnessFunction {
 
     @Override
     public double evaluate(double[] position) {
-        double alpha = 0.3;
-        return alpha * calcTotalTime(position) + (1 - alpha) * calcMakespan(position);
-//        return calcMakespan(position);
+//        double alpha = 0.3;
+//        return alpha * calcTotalTime(position) + (1 - alpha) * calcMakespan(position);
+        return calcMakespan(position);
     }
 
     private double calcTotalTime(double[] position) {
@@ -26,12 +26,13 @@ public class SchedulerFitnessFunction extends FitnessFunction {
         return totalCost;
     }
 
-    private double calcMakespan(double[] position) {
+    public double calcMakespan(double[] position) {
         double makespan = 0;
         double[] dcWorkingTime = new double[Constants.NO_OF_DATA_CENTERS];
 
         for (int i = 0; i < Constants.NO_OF_TASKS; i++) {
             int dcId = (int) position[i];
+            if(dcWorkingTime[dcId] != 0) --dcWorkingTime[dcId];
             dcWorkingTime[dcId] += execTimeMatrix[i][dcId] + communTimeMatrix[i][dcId];
             makespan = Math.max(makespan, dcWorkingTime[dcId]);
         }
@@ -48,7 +49,7 @@ public class SchedulerFitnessFunction extends FitnessFunction {
         for (int i = 0; i < Constants.NO_OF_TASKS; i++) {
             for (int j = 0; j < Constants.NO_OF_DATA_CENTERS; j++) {
                 execTimeMatrix[i][j] = Math.random() * 500;
-                communTimeMatrix[i][j] = Math.random() * 3000 + 20;
+                communTimeMatrix[i][j] = Math.random() * 500 + 20;
             }
         }
     }

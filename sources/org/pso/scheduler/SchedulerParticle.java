@@ -18,7 +18,7 @@ public class SchedulerParticle extends Particle {
         setPosition(position);
         setVelocity(velocity);
     }
-
+    
     @Override
     public String toString() {
         String output = "";

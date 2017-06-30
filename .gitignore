@@ -1,8 +1,6 @@
-bin
 .DS_Store
 .classpath
 .project
-build.xml
 changelog.txt
 pom.xml
 out/

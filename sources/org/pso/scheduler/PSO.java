@@ -27,13 +27,16 @@ public class PSO {
             }
         }
 
-        System.out.println("\nThe best fitness value: " + swarm.getBestFitness());
+        System.out.println("\nThe best fitness value: " + swarm.getBestFitness() + " Best makespan: " + ff.calcMakespan(swarm.getBestParticle().getBestPosition()));
+         
         System.out.println("The best solution is: ");
         SchedulerParticle bestParticle = (SchedulerParticle) swarm.getBestParticle();
         System.out.println(bestParticle.toString());
         
         return swarm.getBestPosition();
     }
+  
+    public double[][] getCommunTimeMatrix() { return ff.getCoumnTimeMatrix(); }
     
     public double[][] getExecTimeMatrix() { return ff.getExecTimeMatrix(); }
     
