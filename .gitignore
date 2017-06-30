@@ -4,5 +4,5 @@
 changelog.txt
 pom.xml
 out/
-examples/
 .idea/
+/bin/
